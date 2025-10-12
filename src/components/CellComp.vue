@@ -5,6 +5,7 @@ const props = defineProps<{
     row: number
     col: number
     isSelect: boolean
+    isInit: boolean
     selectedValue: number | number[]
     isError: boolean
     isSameAsSelected: boolean
@@ -21,12 +22,12 @@ const style = computed(() => ({
           : props.isAssociated
             ? '#7fb1d4'
             : '#a4c8e1',
-    borderTop: props.row % 3 === 0 ? '1px solid #666' : '',
-    borderBottom: props.row % 3 === 2 ? '1px solid #666' : '',
-    borderLeft: props.col % 3 === 0 ? '1px solid #666' : '',
-    borderRight: props.col % 3 === 2 ? '1px solid #666' : '',
+    borderTop: props.row % 3 === 0 ? `${props.row === 0 ? 3 : 1}px solid #369` : '',
+    borderBottom: props.row % 3 === 2 ? `${props.row === 8 ? 3 : 1}px solid #369` : '',
+    borderLeft: props.col % 3 === 0 ? `${props.col === 0 ? 3 : 1}px solid #369` : '',
+    borderRight: props.col % 3 === 2 ? `${props.col === 8 ? 3 : 1}px solid #369` : '',
     fontSize: props.isSelect ? '1.2em' : '1em',
-    color: props.isError ? 'red' : '#384351',
+    color: props.isInit ? '#111' : props.isError ? 'red' : '#386351',
 }))
 </script>
 

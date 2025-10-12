@@ -10,4 +10,6 @@ export type Position = {
     col: number
 }
 
-export type InputModeType = 'exact' | 'alternative'
+export type InputModeType = 'exact' | 'candidate'
+
+export type DifficultyType = 'easy' | 'medium' | 'hard' | 'very_hard' | 'insane' | 'inhuman'

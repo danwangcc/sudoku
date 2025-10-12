@@ -1,75 +1,40 @@
 <script setup lang="ts">
+import Tab from '@/components/TabComp.vue'
 import Cell from '@/components/CellComp.vue'
-import { reactive, ref, computed, withDefaults } from 'vue'
+import Popup from '@/components/PopupComp.vue'
+import { reactive, ref } from 'vue'
 import { getRows, getCols, getBoxes } from '@/utils/boardFilter'
-import { select, initKeyboard, handleInput, changeInputModeT, eraser } from '@/utils/cellSelect'
-import type { BoardType } from '@/types'
+import { handleInput } from '@/utils/cellSelect'
+import { useBoardStore } from '@/stores/boardStore.ts'
+import { getIsInit } from '@/utils/game'
 
-const emptyBoard = Array.from({ length: 81 }).map((item, index) => {
-    return {
-        id: index,
-        row: ~~(index / 9),
-        col: index % 9,
-        value: [0] as number | number[],
-    }
-})
-
-const currentBoard: BoardType = reactive(JSON.parse(JSON.stringify(emptyBoard)))
-
-// 输入模式：选择/备选
-const inputMode = ref('exact')
-
-// 选中的格子坐标
-const selected = reactive<{
-    row: number
-    col: number
-}>({
-    row: 0,
-    col: 0,
-})
-initKeyboard(selected, currentBoard, inputMode)
-
-// 选中的格子的值
-const selectedValue = computed(() => {
-    return currentBoard[selected.row * 9 + selected.col].value
-})
-
-// 切换输入模式
-function changeInputMode(): void {
-    inputMode.value = inputMode.value === 'exact' ? 'alternative' : 'exact'
-    changeInputModeT(inputMode.value)
-}
-
-// 删除所有
-function refresh(): void {
-    currentBoard.splice(0, currentBoard.length, ...JSON.parse(JSON.stringify(emptyBoard)))
-}
+const boardStore = useBoardStore()
 
 // 此格是否直接出错（行 列 宫 重复）
 function getIsError({ row, col, value }: { row: number; col: number; value: number }): boolean {
     if (typeof value !== 'number') return false
 
     // 行
-    const rows = getRows(currentBoard, row, col)
+    const rows = getRows(boardStore.currentBoard, row, col)
     if (rows.findIndex((item) => item.value === value) >= 0) return true
 
     // 列
-    const cols = getCols(currentBoard, row, col)
+    const cols = getCols(boardStore.currentBoard, row, col)
     if (cols.findIndex((item) => item.value === value) >= 0) return true
 
     // 宫
-    const boxs = getBoxes(currentBoard, row, col)
+    const boxs = getBoxes(boardStore.currentBoard, row, col)
     if (boxs.findIndex((item) => item.value === value) >= 0) return true
     return false
 }
 
 function getIsAssociated({ row, col }: { row: number; col: number }): boolean {
-    if (row === selected.row || col === selected.col) return true
+    if (row === boardStore.selected.row || col === boardStore.selected.col) return true
 
-    const boxs = getBoxes(currentBoard, row, col)
+    const boxs = getBoxes(boardStore.currentBoard, row, col)
     if (
         boxs.findIndex((item) => {
-            return item.row === selected.row && item.col === selected.col
+            return item.row === boardStore.selected.row && item.col === boardStore.selected.col
         }) >= 0
     ) {
         return true
@@ -80,20 +45,26 @@ function getIsAssociated({ row, col }: { row: number; col: number }): boolean {
 
 <template>
     <div class="layout">
+        <Tab />
+
         <div class="box">
-            <div class="cell-box" :class="1" v-for="item in currentBoard" :key="item.id">
+            <div class="cell-box" v-for="item in boardStore.currentBoard" :key="item.id">
                 <Cell
+                    @click="boardStore.select(item, boardStore.selected)"
                     :row="item.row"
                     :col="item.col"
-                    :isSelect="selected.row === item.row && selected.col === item.col"
-                    @click="select(item, selected)"
                     :selectedValue="item.value"
+                    :isSelect="
+                        boardStore.selected.row === item.row && boardStore.selected.col === item.col
+                    "
+                    :isInit="getIsInit(item.id)"
                     :isError="getIsError(item)"
-                    :isSameAsSelected="item.value === selectedValue"
+                    :isSameAsSelected="item.value === boardStore.selectedValue"
                     :isAssociated="getIsAssociated(item)"
                 />
             </div>
         </div>
+
         <div class="panel">
             <div
                 class="inputNumber"
@@ -105,31 +76,37 @@ function getIsAssociated({ row, col }: { row: number; col: number }): boolean {
             </div>
         </div>
         <div class="tool">
-            <div @click="eraser">
+            <div @click="boardStore.eraser">
                 <img src="@/assets/editor-eraser.svg" alt="eraser" />
-                <span>Q</span>
+                <div class="key">Q</div>
             </div>
             <div
-                @click="changeInputMode"
-                :style="{ background: inputMode === 'exact' ? '' : '#11451419' }"
+                @click="boardStore.changeInputMode"
+                :style="{ background: boardStore.inputMode === 'exact' ? '' : '#11451419' }"
             >
                 <img src="@/assets/note.svg" alt="note" />
-                <span>E</span>
+                <div class="key">E</div>
             </div>
-            <div @click="refresh">
+            <div @click="boardStore.refresh">
                 <img src="@/assets/refresh.svg" alt="refresh" />
-                <span>R</span>
+                <div class="key">R</div>
             </div>
         </div>
         <div class="description">
             <img width="40" src="@/assets/WASD.svg" alt="WASD" />
             <span>支持↑↓←→和WASD, 数字和小键盘</span>
         </div>
+        <button @click="test">test</button>
+
+        <br />
+        <br />
+        <br />
     </div>
 </template>
 
 <style scoped lang="scss">
 .layout {
+    width: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -143,7 +120,6 @@ function getIsAssociated({ row, col }: { row: number; col: number }): boolean {
         width: 540px;
         height: 540px;
         margin: 15px auto;
-        border: 1px rgb(77, 77, 223) solid;
 
         .cell-box {
             width: 60px;
@@ -188,6 +164,13 @@ function getIsAssociated({ row, col }: { row: number; col: number }): boolean {
 
             img {
                 height: 30px;
+            }
+
+            .key {
+                border: 1px solid black;
+                font-weight: bold;
+                width: 1.1em;
+                height: 1.1em;
             }
         }
     }
