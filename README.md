@@ -1,8 +1,10 @@
 # Sudoku
 
 一次typescript的尝试，用起来确实很舒畅
+在线预览: [Sudoku](https://sudoku-bzw.pages.dev/)
 
 数独算法基于[Sudoku.js](https://github.com/robatron/sudoku.js)
+
 
 This template should help get you started developing with Vue 3 in Vite.
 
