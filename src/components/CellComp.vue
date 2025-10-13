@@ -62,9 +62,11 @@ const style = computed(() => ({
         align-items: center;
         overflow: hidden;
         font-size: 2em;
+        line-height: 0.5em;
     }
 
     .alternative {
+        width: 100%;
         height: 100%;
         display: grid;
         overflow: hidden;
@@ -76,7 +78,11 @@ const style = computed(() => ({
             justify-content: center;
             align-items: center;
             overflow: hidden;
+            line-height: 1em;
         }
     }
+}
+
+@media (max-width: 540px) {
 }
 </style>

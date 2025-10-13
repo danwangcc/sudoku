@@ -6,7 +6,7 @@ import { generateBoard } from '@/utils/game'
 
 const boardStore = useBoardStore()
 
-const difficulties = reactive(['easy', 'medium', 'hard', 'very-hard', 'insane', 'inhuman'])
+const difficulties = reactive(['easy', 'medium', 'hard', 'very-hard', 'insane']) // , 'inhuman'
 const difficulty = ref('easy')
 
 // 开局
@@ -51,7 +51,7 @@ function newGame(target?: DifficultyType): void {
 <style scoped lang="scss">
 .tab {
     display: flex;
-    width: 540px;
+    width: 100%;
     justify-content: space-around;
     align-items: center;
     cursor: pointer;
@@ -59,6 +59,8 @@ function newGame(target?: DifficultyType): void {
     font-size: 1em;
     background: #fff8f0;
     border-bottom: 2px solid #a2c8e8;
+    white-space: nowrap;
+    overflow: hidden;
 
     .tabItem {
         transition: all 0.1s linear;
@@ -66,7 +68,7 @@ function newGame(target?: DifficultyType): void {
         display: flex;
         justify-content: space-around;
         align-items: center;
-        border-radius: 50% 50% 0 0;
+        border-radius: 40% 40% 0 0;
     }
 
     .active {
@@ -86,6 +88,15 @@ function newGame(target?: DifficultyType): void {
 
         img {
             height: 1.5em;
+        }
+    }
+}
+
+@media (max-width: 540px) {
+    .tab {
+        font-size: 1em;
+        .tabItem {
+            padding: 0 5px;
         }
     }
 }

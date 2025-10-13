@@ -1,6 +1,8 @@
 @import './base.css';
 
 #app {
+    padding-top: 2vh;
+    min-height: 100vh;
     background: #dbf1d655;
 }
 

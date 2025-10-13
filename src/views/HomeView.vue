@@ -45,7 +45,9 @@ function getIsAssociated({ row, col }: { row: number; col: number }): boolean {
 
 <template>
     <div class="layout">
-        <Tab />
+        <div class="tab">
+            <Tab />
+        </div>
 
         <div class="box">
             <div class="cell-box" v-for="item in boardStore.currentBoard" :key="item.id">
@@ -96,11 +98,6 @@ function getIsAssociated({ row, col }: { row: number; col: number }): boolean {
             <img width="40" src="@/assets/WASD.svg" alt="WASD" />
             <span>支持↑↓←→和WASD, 数字和小键盘</span>
         </div>
-        <button @click="test">test</button>
-
-        <br />
-        <br />
-        <br />
     </div>
 </template>
 
@@ -110,6 +107,10 @@ function getIsAssociated({ row, col }: { row: number; col: number }): boolean {
     display: flex;
     flex-direction: column;
     align-items: center;
+
+    .tab {
+        width: 540px;
+    }
 
     .box {
         display: grid;
@@ -179,6 +180,63 @@ function getIsAssociated({ row, col }: { row: number; col: number }): boolean {
         width: 540px;
         padding: 10px;
         font-size: 1.2rem;
+    }
+}
+
+@media (max-width: 540px) {
+    .layout {
+        width: 100vw;
+        overflow: hidden;
+
+        .tab {
+            width: 100%;
+        }
+
+        .box {
+            width: 95vw;
+            height: 95vw;
+            min-height: 320px;
+            font-size: 0.8em;
+
+            .cell-box {
+                width: 100%;
+                height: 100%;
+            }
+        }
+
+        .panel {
+            width: 95vw;
+            height: 10vw;
+            font-size: 4vw;
+
+            .inputNumber {
+                width: 10.6vw;
+                height: 100%;
+            }
+        }
+
+        .tool {
+            width: 95vw;
+            height: 10vw;
+
+            div {
+                margin: 0 0px;
+                height: 100%;
+                width: 40px;
+
+                img {
+                    height: 6vw;
+                }
+
+                .key {
+                    display: none;
+                }
+            }
+        }
+
+        .description {
+            width: 95vw;
+        }
     }
 }
 </style>
