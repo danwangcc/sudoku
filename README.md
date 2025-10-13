@@ -2,7 +2,7 @@
 
 一次typescript的尝试，用起来确实很舒畅
 
-数独算法基于[Sudoku.js][https://github.com/robatron/sudoku.js]
+数独算法基于[Sudoku.js](https://github.com/robatron/sudoku.js)
 
 This template should help get you started developing with Vue 3 in Vite.
 
