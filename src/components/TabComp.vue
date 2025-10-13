@@ -28,6 +28,7 @@ function newGame(target?: DifficultyType): void {
         }
     }
 }
+newGame()
 </script>
 
 <template>

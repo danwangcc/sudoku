@@ -1,8 +1,6 @@
 <script setup lang="ts">
 import Tab from '@/components/TabComp.vue'
 import Cell from '@/components/CellComp.vue'
-import Popup from '@/components/PopupComp.vue'
-import { reactive, ref } from 'vue'
 import { getRows, getCols, getBoxes } from '@/utils/boardFilter'
 import { handleInput } from '@/utils/cellSelect'
 import { useBoardStore } from '@/stores/boardStore.ts'
@@ -95,8 +93,15 @@ function getIsAssociated({ row, col }: { row: number; col: number }): boolean {
             </div>
         </div>
         <div class="description">
-            <img width="40" src="@/assets/WASD.svg" alt="WASD" />
-            <span>支持↑↓←→和WASD, 数字和小键盘</span>
+            <span>
+                <img width="40" src="@/assets/WASD.svg" alt="WASD" />
+                支持↑↓←→和WASD, 数字和小键盘</span
+            ><br />
+            <div class="footer">
+                <a href="https://github.com/danwang1239568/sudoku" target="_blank">
+                    <img title="前往Github" width="40" src="@/assets/github.svg" alt="github" />
+                </a>
+            </div>
         </div>
     </div>
 </template>
@@ -180,6 +185,14 @@ function getIsAssociated({ row, col }: { row: number; col: number }): boolean {
         width: 540px;
         padding: 10px;
         font-size: 1.2rem;
+
+        .footer {
+            margin-top: 10vh;
+            display: flex;
+            justify-content: space-evenly;
+            cursor: pointer;
+            user-select: none;
+        }
     }
 }
 
