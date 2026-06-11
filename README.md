@@ -1,5 +1,13 @@
 # Sudoku
 
+一次 TypeScript 的尝试，用起来确实很舒畅。
+
+在线预览: [Sudoku](https://sudoku-bzw.pages.dev/)
+
+数独算法基于 [Sudoku.js](https://github.com/robatron/sudoku.js)
+
+---
+
 一个基于 Vue 3 + TypeScript + Pinia 的数独游戏。
 
 ## 特性
@@ -9,7 +17,6 @@
 - ✏️ 备选模式：在格子中标注候选数字
 - 🎨 行/列/宫关联高亮，冲突红色提示
 - 📱 移动端响应式适配
-- ⚡ 一键通关（控制台 `__sudoku_solve()`）
 
 ## 操作说明
 
