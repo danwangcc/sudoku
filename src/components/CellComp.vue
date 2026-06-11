@@ -13,6 +13,9 @@ const props = defineProps<{
 }>()
 
 const isExact = computed(() => typeof props.selectedValue === 'number' && props.selectedValue !== 0)
+const candidateValue = computed(() =>
+    Array.isArray(props.selectedValue) ? props.selectedValue : [],
+)
 
 const style = computed(() => ({
     background: props.isSelect
@@ -38,7 +41,7 @@ const style = computed(() => ({
         </div>
         <div class="alternative" v-show="!isExact && props.selectedValue !== 0">
             <div class="item" v-for="item in 9" :key="item">
-                <div v-show="props.selectedValue.includes && props.selectedValue.includes(item)">
+                <div v-show="candidateValue.includes(item)">
                     {{ item }}
                 </div>
             </div>

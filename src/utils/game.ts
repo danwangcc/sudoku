@@ -1,4 +1,4 @@
-import type { DifficultyType, Position } from '@/types'
+import type { DifficultyType } from '@/types'
 import sudoku from '@/utils/sudoku'
 import { useBoardStore } from '@/stores/boardStore'
 

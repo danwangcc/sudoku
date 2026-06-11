@@ -1,13 +1,13 @@
 <script setup lang="ts">
-import { reactive, ref, defineEmits } from 'vue'
+import { reactive, ref } from 'vue'
 import { useBoardStore } from '@/stores/boardStore.ts'
 import type { DifficultyType } from '@/types'
 import { generateBoard } from '@/utils/game'
 
 const boardStore = useBoardStore()
 
-const difficulties = reactive(['easy', 'medium', 'hard', 'very-hard', 'insane']) // , 'inhuman'
-const difficulty = ref('easy')
+const difficulties = reactive<DifficultyType[]>(['easy', 'medium', 'hard', 'very-hard', 'insane']) // , 'inhuman'
+const difficulty = ref<DifficultyType>('easy')
 
 // 开局
 function newGame(target?: DifficultyType): void {

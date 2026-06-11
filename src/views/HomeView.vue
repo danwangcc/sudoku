@@ -9,7 +9,7 @@ import { getIsInit } from '@/utils/game'
 const boardStore = useBoardStore()
 
 // 此格是否直接出错（行 列 宫 重复）
-function getIsError({ row, col, value }: { row: number; col: number; value: number }): boolean {
+function getIsError({ row, col, value }: { row: number; col: number; value: number | number[] }): boolean {
     if (typeof value !== 'number') return false
 
     // 行
@@ -26,6 +26,7 @@ function getIsError({ row, col, value }: { row: number; col: number; value: numb
     return false
 }
 
+// 行 列 宫高亮
 function getIsAssociated({ row, col }: { row: number; col: number }): boolean {
     if (row === boardStore.selected.row || col === boardStore.selected.col) return true
 
@@ -50,7 +51,7 @@ function getIsAssociated({ row, col }: { row: number; col: number }): boolean {
         <div class="box">
             <div class="cell-box" v-for="item in boardStore.currentBoard" :key="item.id">
                 <Cell
-                    @click="boardStore.select(item, boardStore.selected)"
+                    @click="boardStore.select(item)"
                     :row="item.row"
                     :col="item.col"
                     :selectedValue="item.value"
@@ -70,7 +71,7 @@ function getIsAssociated({ row, col }: { row: number; col: number }): boolean {
                 class="inputNumber"
                 v-for="item in 9"
                 :key="item"
-                @click="handleInput(item, inputMode)"
+                @click="handleInput(item)"
             >
                 {{ item }}
             </div>
