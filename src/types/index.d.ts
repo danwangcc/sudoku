@@ -5,11 +5,11 @@ export type BoardType = {
     value: number | number[]
 }[]
 
-export type Position = {
+export type PositionType = {
     row: number
     col: number
 }
 
 export type InputModeType = 'exact' | 'candidate'
 
-export type DifficultyType = 'easy' | 'medium' | 'hard' | 'very_hard' | 'insane' | 'inhuman'
+export type DifficultyType = 'easy' | 'medium' | 'hard' | 'very-hard' | 'insane' | 'inhuman'

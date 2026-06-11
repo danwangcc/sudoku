@@ -54,10 +54,10 @@ export const handleInput = (inputNumber: number): void => {
                 const time = Date.now()
                 boardStore.timer.endTime = time
                 boardStore.timer.totalTime = time - boardStore.timer.startTime
-                const minites = Math.floor(boardStore.timer.totalTime / 60000)
+                const minutes = Math.floor(boardStore.timer.totalTime / 60000)
                 const seconds = Math.floor((boardStore.timer.totalTime % 60000) / 1000)
-                console.log(minites, seconds)
-                alert(`成功！\n用时: ${minites}分${seconds}秒`)
+                console.log(minutes, seconds)
+                alert(`成功！\n用时: ${minutes}分${seconds}秒`)
             }, 200)
         }
 
@@ -119,10 +119,10 @@ let downMoveTimer: number
 let leftMoveTimer: number
 let rightMoveTimer: number
 const moveDelay = 200
-let isListenning = false
+let isListening = false
 export const initKeyboard = () => {
-    if (isListenning) return
-    isListenning = true
+    if (isListening) return
+    isListening = true
     const boardStore = useBoardStore()
     window.solve = boardStore.solve
 

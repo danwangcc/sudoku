@@ -1,5 +1,4 @@
 import type { DifficultyType, Position } from '@/types'
-import {} from './cellSelect'
 import sudoku from '@/utils/sudoku'
 import { useBoardStore } from '@/stores/boardStore'
 
