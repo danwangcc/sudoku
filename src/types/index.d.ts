@@ -13,3 +13,9 @@ export type PositionType = {
 export type InputModeType = 'exact' | 'candidate'
 
 export type DifficultyType = 'easy' | 'medium' | 'hard' | 'very-hard' | 'insane' | 'inhuman'
+
+declare global {
+    interface Window {
+        __sudoku_solve?: () => void
+    }
+}

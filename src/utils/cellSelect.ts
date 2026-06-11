@@ -124,7 +124,7 @@ export const initKeyboard = () => {
     if (isListening) return
     isListening = true
     const boardStore = useBoardStore()
-    window.solve = boardStore.solve
+    window.__sudoku_solve = boardStore.solve
 
     document.addEventListener('keydown', (e) => {
         if (e.repeat === true) return
