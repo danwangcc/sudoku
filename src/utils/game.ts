@@ -8,8 +8,9 @@ export const generateBoard = (difficulty: DifficultyType): void => {
 
     const [newBoard, answerBoard] = sudoku.$generate(difficulty)
     for (let i = 0; i < boardStore.currentBoard.length; i++) {
-        boardStore.initialBoard[i]!.value = Array.isArray(newBoard[i]) ? [0] : newBoard[i]
-        boardStore.currentBoard[i]!.value = Array.isArray(newBoard[i]) ? [0] : newBoard[i]
+        const nb = newBoard[i]!
+        boardStore.initialBoard[i]!.value = Array.isArray(nb) ? [0] : nb
+        boardStore.currentBoard[i]!.value = Array.isArray(nb) ? [0] : nb
     }
     boardStore.answerBoard = answerBoard
     boardStore.timer.startTime = Date.now()

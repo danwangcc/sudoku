@@ -1,47 +1,60 @@
-# aa
+# Sudoku
 
-This template should help get you started developing with Vue 3 in Vite.
+一个基于 Vue 3 + TypeScript + Pinia 的数独游戏。
 
-## Recommended IDE Setup
+## 特性
 
-[VS Code](https://code.visualstudio.com/) + [Vue (Official)](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur).
+- 🎮 五种难度：Easy / Medium / Hard / Very-hard / Insane
+- ⌨️ 键盘操作：方向键 / WASD 移动，数字键输入，Q 删除，E 切换备选模式，R 重置
+- ✏️ 备选模式：在格子中标注候选数字
+- 🎨 行/列/宫关联高亮，冲突红色提示
+- 📱 移动端响应式适配
+- ⚡ 一键通关（控制台 `__sudoku_solve()`）
 
-## Recommended Browser Setup
+## 操作说明
 
-- Chromium-based browsers (Chrome, Edge, Brave, etc.):
-    - [Vue.js devtools](https://chromewebstore.google.com/detail/vuejs-devtools/nhdogjmejiglipccpnnnanhbledajbpd)
-    - [Turn on Custom Object Formatter in Chrome DevTools](http://bit.ly/object-formatters)
-- Firefox:
-    - [Vue.js devtools](https://addons.mozilla.org/en-US/firefox/addon/vue-js-devtools/)
-    - [Turn on Custom Object Formatter in Firefox DevTools](https://fxdx.dev/firefox-devtools-custom-object-formatters/)
+| 操作 | 快捷键 | 说明 |
+|------|--------|------|
+| 移动 | `↑↓←→` / `WASD` | 长按连续移动 |
+| 输入 | `1-9` / `Numpad1-9` | 填入数字 |
+| 备选 | `E` | 切换确定/备选输入模式 |
+| 删除 | `Q` | 清除当前格 |
+| 重置 | `R` | 重置棋盘 |
 
-## Type Support for `.vue` Imports in TS
+## 技术栈
 
-TypeScript cannot handle type information for `.vue` imports by default, so we replace the `tsc` CLI with `vue-tsc` for type checking. In editors, we need [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) to make the TypeScript language service aware of `.vue` types.
+- Vue 3 (Composition API + `<script setup>`)
+- TypeScript
+- Pinia (状态管理)
+- Vue Router
+- Vite
+- SCSS
 
-## Customize configuration
-
-See [Vite Configuration Reference](https://vite.dev/config/).
-
-## Project Setup
+## 项目搭建
 
 ```sh
 pnpm install
 ```
 
-### Compile and Hot-Reload for Development
+### 开发
 
 ```sh
 pnpm dev
 ```
 
-### Type-Check, Compile and Minify for Production
+### 构建
 
 ```sh
 pnpm build
 ```
 
-### Lint with [ESLint](https://eslint.org/)
+### 类型检查
+
+```sh
+pnpm type-check
+```
+
+### Lint
 
 ```sh
 pnpm lint
